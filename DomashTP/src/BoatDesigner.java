@@ -13,11 +13,12 @@ public class BoatDesigner {
 	private JButton btnNewButtonRight;
 	private JButton btnNewButtonDown;
 	private JButton btnNewButtonLeft;
-	private JButton btnNewButtonUp;
-	private JButton btnCreate;
-	private JPanel panelMain;
-	private ClassCatamaran cat = new ClassCatamaran(false, 10, 20, Color.blue, Color.black, true, true);
-	private ClassSail sail = new ClassSail(Color.white, false, Sailnum.sail3);
+	private JButton btnNewButtonUp;;
+	private JButton btnCreateBoat;
+	private PanelBoat panelMain;
+	private ITransport cat;
+	private ISail sail;
+	private JButton btnCreateCatamaran;
 
 	/**
 	 * Launch the application.
@@ -57,27 +58,41 @@ public class BoatDesigner {
 		frame.getContentPane().add(panelMain);
 		panelMain.setLayout(null);
 
-		btnCreate = new JButton("Cоздать");
-		btnCreate.addActionListener(new ActionListener() {
+		btnCreateBoat = new JButton("\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043B\u043E\u0434\u043A\u0443");
+		btnCreateBoat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ClassSail.WLife = true;
-				ClassCatamaran.Life = true;
+				cat = new BoatBase(10, Color.blue, 20, sail = new OvalSail(Color.BLACK));
+				panelMain.setBoat(cat);
 				cat.SetPosition(100, 100, frame.getWidth(), frame.getHeight());
-				sail.SetPosition(100, 100, frame.getWidth(), frame.getHeight());
 				panelMain.repaint();
 			}
 		});
-		btnCreate.setBounds(12, 13, 102, 33);
-		panelMain.add(btnCreate);
+		btnCreateBoat.setBounds(10, 13, 153, 33);
+		panelMain.add(btnCreateBoat);
 
 		btnNewButtonRight = new JButton(">");
 		btnNewButtonRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cat.MoveTransport(Cenum.Right);
-				sail.SetPosition(cat._startPosX, cat._startPosY, frame.getWidth(), frame.getHeight());
+				if (cat != null && sail != cat) {
+					cat.MoveTransport(Cenum.Right);
+					sail.SetPosition(cat.getPosX(), cat.getPosY());
+					panelMain.repaint();
+				}
+			}
+		});
+
+		btnCreateCatamaran = new JButton(
+				"\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043A\u0430\u0442\u0430\u043C\u0430\u0440\u0430\u043D");
+		btnCreateCatamaran.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cat = new Catamaran(10, Color.blue, 20, sail = new RectSail(Color.WHITE), Color.black, true, true);
+				panelMain.setBoat(cat);
+				cat.SetPosition(100, 100, frame.getWidth(), frame.getHeight());
 				panelMain.repaint();
 			}
 		});
+		btnCreateCatamaran.setBounds(173, 13, 147, 33);
+		panelMain.add(btnCreateCatamaran);
 		btnNewButtonRight.setFont(new Font("Tahoma", Font.PLAIN, 7));
 		btnNewButtonRight.setBounds(831, 551, 39, 39);
 		panelMain.add(btnNewButtonRight);
@@ -85,9 +100,11 @@ public class BoatDesigner {
 		btnNewButtonDown = new JButton("v");
 		btnNewButtonDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cat.MoveTransport(Cenum.Down);
-				sail.SetPosition(cat._startPosX, cat._startPosY, frame.getWidth(), frame.getHeight());
-				panelMain.repaint();
+				if (cat != null && sail != cat) {
+					cat.MoveTransport(Cenum.Down);
+					sail.SetPosition(cat.getPosX(), cat.getPosY());
+					panelMain.repaint();
+				}
 			}
 		});
 		btnNewButtonDown.setFont(new Font("Tahoma", Font.PLAIN, 7));
@@ -97,9 +114,11 @@ public class BoatDesigner {
 		btnNewButtonLeft = new JButton("<");
 		btnNewButtonLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cat.MoveTransport(Cenum.Left);
-				sail.SetPosition(cat._startPosX, cat._startPosY, frame.getWidth(), frame.getHeight());
-				panelMain.repaint();
+				if (cat != null && sail != cat) {
+					cat.MoveTransport(Cenum.Left);
+					sail.SetPosition(cat.getPosX(), cat.getPosY());
+					panelMain.repaint();
+				}
 			}
 		});
 		btnNewButtonLeft.setFont(new Font("Tahoma", Font.PLAIN, 7));
@@ -109,9 +128,11 @@ public class BoatDesigner {
 		btnNewButtonUp = new JButton("^");
 		btnNewButtonUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cat.MoveTransport(Cenum.Up);
-				sail.SetPosition(cat._startPosX, cat._startPosY, frame.getWidth(), frame.getHeight());
-				panelMain.repaint();
+				if (cat != null && sail != cat) {
+					cat.MoveTransport(Cenum.Up);
+					sail.SetPosition(cat.getPosX(), cat.getPosY());
+					panelMain.repaint();
+				}
 			}
 		});
 		btnNewButtonUp.setFont(new Font("Tahoma", Font.PLAIN, 7));

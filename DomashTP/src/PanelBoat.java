@@ -1,19 +1,27 @@
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-public class PanelBoat extends JPanel {
-	private ClassCatamaran cat;
-	private ClassSail sail;
+import java.awt.Graphics;
+import javax.swing.JPanel;
 
-	public PanelBoat(ClassCatamaran cat, ClassSail sail) {
+public class PanelBoat extends JPanel {
+	private ITransport cat;
+	private ISail sail;
+
+	public PanelBoat(ITransport cat, ISail sail) {
 		this.cat = cat;
 		this.sail = sail;
+	}
+
+	void setBoat(ITransport cat) {
+		this.cat = cat;
 	}
 
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		cat.DrawCatamaran(g);
-		sail.Draw(g);
+		if (cat != null) {
+			cat.DrawCatamaran(g);
+		}
 	}
 }
