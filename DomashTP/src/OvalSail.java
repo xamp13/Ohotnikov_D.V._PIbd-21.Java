@@ -1,13 +1,15 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class ClassSail implements ISail {
+public class OvalSail implements ISail {
 
-	static int _startPosX;
-	static int _startPosY;
+	private int _startPosX;
+	private int _startPosY;
+	private int _pictureWidth;
+	private int _pictureHeight;
 	private Color ColorSail;
 
-	public ClassSail(Color colorsail) {
+	public OvalSail(Color colorsail) {
 		ColorSail = colorsail;
 	}
 
@@ -18,9 +20,9 @@ public class ClassSail implements ISail {
 
 	public void DrawSail(Graphics g, int countSail) {
 		int y = 0;
-		g.setColor(ColorSail);
+		g.setColor(Color.WHITE);
 		for (int i = 0; i < countSail; i++) {
-			g.fillRect(_startPosX + 20, _startPosY + 10 + y, 80, 5);
+			g.fillOval(_startPosX + 20, _startPosY + 10 + y, 80, 5);
 			y += 10;
 		}
 	}
@@ -40,5 +42,4 @@ public class ClassSail implements ISail {
 		}
 		DrawSail(g, countSail);
 	}
-
 }
